@@ -8,14 +8,14 @@ def writer_before_model_callback(callback_context: CallbackContext, llm_request:
 
     # 拼接历史反馈
     feedback = ""
-    if state.get("review_score") is not None and state.get("review_notes") and state.get("draft"):
+    if state.get("positive_comment") is not None and state.get("negative_comment") and state.get("draft"):
         feedback = f"""
 【修订提示】
-上轮故事评审得分：{state['review_score']}
-评审意见：{state['review_notes']}
+上轮故事积极评审意见：{state['positive_comment']}
+上轮故事消极评审意见：{state['negative_comment']}
 上轮草稿如下：
 {state['draft']}
-请针对上述反馈进行优化改写。
+请针对上述反馈进行优化改写。请保存积极评审意见中的优势。并且改进消极评审意见中提及的不足
 """
     # 如果有反馈，就插到 instruction 前面，否则保持原样
     if feedback:
@@ -30,8 +30,6 @@ def writer_after_model_callback(callback_context, llm_response):
                     text += part.text
     except Exception as e:
         print(f"Error extracting text: {e}")
-    print("最终输出文本：")
-    print(text)
     callback_context.state["draft"] = text.strip()
 
 class WriterAgent(LlmAgent):
