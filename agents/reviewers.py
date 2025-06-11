@@ -2,7 +2,7 @@ import json
 import re
 from google.adk.agents import LlmAgent
 
-def extract_comment(llm_response):
+def extract_comment_and_score(llm_response):
     text = ""
     try:
         if hasattr(llm_response, "content") and hasattr(llm_response.content, "parts"):
@@ -21,10 +21,10 @@ def extract_comment(llm_response):
     return result.get("comment", ""), float(result.get("score", 0.0))
 
 def positive_reviewer_after_model_callback(callback_context, llm_response):
-    callback_context.state["positive_comment"], callback_context.state["positive_score"] = extract_comment(llm_response)
+    callback_context.state["positive_comment"], callback_context.state["positive_score"] = extract_comment_and_score(llm_response)
 
 def negative_reviewer_after_model_callback(callback_context, llm_response):
-    callback_context.state["negative_comment"], callback_context.state["negative_score"] = extract_comment(llm_response)
+    callback_context.state["negative_comment"], callback_context.state["negative_score"] = extract_comment_and_score(llm_response)
 
 
 class PositiveReviewerAgent(LlmAgent):
@@ -37,7 +37,7 @@ class PositiveReviewerAgent(LlmAgent):
 你是一名儿童故事专家，请根据 rubric 对儿童故事草稿进行积极评价，并为文章打分。
 请你始终以首次阅读者的视角，真诚、热情地指出故事中值得肯定和保留的亮点，帮助作者明确哪些地方做得好。禁止任何负面或批评性评价。
 
-输出必须为标准 JSON 格式，不应该包含开头的“```json”和结尾的“```”
+输出必须为标准 JSON 格式。
 
 返回的JSON包含两个字段：
 {
@@ -68,7 +68,7 @@ class NegativeReviewerAgent(LlmAgent):
 你是一名儿童故事领域的专业批评家，请根据 rubric 对以下草稿进行严格、批判性的审查，重点指出故事中存在的不足、弱点或可以明显改进的地方。
 禁止正面鼓励性评论，全部内容必须直言不讳地指出问题。
 
-输出必须为标准 JSON 格式，不应该包含开头的“```json”和结尾的“```”
+输出必须为标准 JSON 格式。
 
 返回的JSON包含两个字段：
 {
