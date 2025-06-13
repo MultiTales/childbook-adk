@@ -3,12 +3,18 @@ from google.adk.agents.callback_context import CallbackContext
 from google.adk.models.llm_request import LlmRequest
 
 
-def writer_before_model_callback(callback_context: CallbackContext, llm_request: LlmRequest):
+def writer_before_model_callback(
+    callback_context: CallbackContext, llm_request: LlmRequest
+):
     state = callback_context.state
 
     # 拼接历史反馈
     feedback = ""
-    if state.get("positive_comment") is not None and state.get("negative_comment") and state.get("draft"):
+    if (
+        state.get("positive_comment") is not None
+        and state.get("negative_comment")
+        and state.get("draft")
+    ):
         feedback = f"""
 【修订提示】
 上轮故事积极评审意见：{state['positive_comment']}
@@ -23,6 +29,7 @@ def writer_before_model_callback(callback_context: CallbackContext, llm_request:
     if feedback:
         llm_request.append_instructions([feedback])
 
+
 def writer_after_model_callback(callback_context, llm_response):
     text = ""
     try:
@@ -34,12 +41,13 @@ def writer_after_model_callback(callback_context, llm_response):
         print(f"Error extracting text: {e}")
     callback_context.state["draft"] = text.strip()
 
+
 class WriterAgent(LlmAgent):
     def __init__(self):
         super().__init__(
             model="gemini-2.5-pro-preview-06-05",
             name="writer",
-            before_model_callback = writer_before_model_callback,
+            before_model_callback=writer_before_model_callback,
             after_model_callback=writer_after_model_callback,
             description="写作有趣儿童读物的作家",
             instruction="""
@@ -52,5 +60,5 @@ class WriterAgent(LlmAgent):
 
 请直接输出正文，不要带任何说明。
 请按照用给出的要求完成创作。每次输出都需要完整给出完整文章。
-"""
+""",
         )

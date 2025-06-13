@@ -1,5 +1,6 @@
 from google.adk.agents import LlmAgent
 
+
 def editor_after_model_callback(callback_context, llm_response):
     # 1. 提取大模型输出的文本
     text = ""
@@ -16,6 +17,7 @@ def editor_after_model_callback(callback_context, llm_response):
 
     # 2. 写入 state["edited"] 供下游 agent 用
     callback_context.state["edited"] = text.strip()
+
 
 class EditorAgent(LlmAgent):
     def __init__(self):
@@ -34,5 +36,5 @@ class EditorAgent(LlmAgent):
 ${draft}
 ```
 """,
-            after_model_callback=editor_after_model_callback
+            after_model_callback=editor_after_model_callback,
         )

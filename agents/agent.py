@@ -14,7 +14,7 @@ editor = EditorAgent()
 reviewers = ParallelAgent(
     name="ParallelReviewAgent",
     sub_agents=[positive_reviewer, negative_reviewer],
-    description="Run multiple review agents in parallel to get comprehensive reviews."
+    description="Run multiple review agents in parallel to get comprehensive reviews.",
 )
 
 workflow = SequentialAgent(
@@ -23,7 +23,5 @@ workflow = SequentialAgent(
 )
 
 root_agent = LoopAgent(
-    name="BookProductionLoop",
-    sub_agents=[workflow],
-    max_iterations=5
+    name="BookProductionLoop", sub_agents=[workflow], max_iterations=5
 )

@@ -2,6 +2,7 @@ import json
 import re
 from google.adk.agents import LlmAgent
 
+
 def extract_comment_and_score(llm_response):
     text = ""
     try:
@@ -20,11 +21,19 @@ def extract_comment_and_score(llm_response):
         result = json.loads(text)
     return result.get("comment", ""), float(result.get("score", 0.0))
 
+
 def positive_reviewer_after_model_callback(callback_context, llm_response):
-    callback_context.state["positive_comment"], callback_context.state["positive_score"] = extract_comment_and_score(llm_response)
+    (
+        callback_context.state["positive_comment"],
+        callback_context.state["positive_score"],
+    ) = extract_comment_and_score(llm_response)
+
 
 def negative_reviewer_after_model_callback(callback_context, llm_response):
-    callback_context.state["negative_comment"], callback_context.state["negative_score"] = extract_comment_and_score(llm_response)
+    (
+        callback_context.state["negative_comment"],
+        callback_context.state["negative_score"],
+    ) = extract_comment_and_score(llm_response)
 
 
 class PositiveReviewerAgent(LlmAgent):
@@ -56,15 +65,17 @@ rubric（评分标准）如下：
 故事草稿如下：
 ${draft}
 """,
-            after_model_callback=positive_reviewer_after_model_callback
+            after_model_callback=positive_reviewer_after_model_callback,
         )
+
 
 class NegativeReviewerAgent(LlmAgent):
     def __init__(self):
-        super().__init__(model="gemini-2.0-flash",
+        super().__init__(
+            model="gemini-2.0-flash",
             name="negative_reviewer",
-                         description="批判性评审儿童故事质量，指出不足并给出分数",
-                         instruction="""
+            description="批判性评审儿童故事质量，指出不足并给出分数",
+            instruction="""
 你是一名儿童故事领域的专业批评家，请根据 rubric 对以下草稿进行严格、批判性的审查，重点指出故事中存在的不足、弱点或可以明显改进的地方。
 禁止正面鼓励性评论，全部内容必须直言不讳地指出问题。
 
@@ -88,5 +99,5 @@ rubric（评分标准）如下：
 故事草稿如下：
 ${draft}
 """,
-            after_model_callback=negative_reviewer_after_model_callback
+            after_model_callback=negative_reviewer_after_model_callback,
         )

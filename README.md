@@ -20,3 +20,10 @@ Run adk:
 ```sh
 uv run adk web
 ```
+
+## Other tools
+
+Format the code:
+```sh
+uv run black .
+```
