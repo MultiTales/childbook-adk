@@ -20,13 +20,19 @@ def editor_after_model_callback(callback_context, llm_response):
 class EditorAgent(LlmAgent):
     def __init__(self):
         super().__init__(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash-preview-05-20",
             name="editor",
             description="润色并提升故事文本质量的编辑",
             instruction="""
-你是一名儿童故事编辑，请对下列草稿进行润色和优化，使其表达更清晰、更符合5-8岁儿童阅读习惯。请输出润色后的完整故事正文，不要加任何说明。
+你是一名儿童故事编辑，请对下列草稿进行润色和优化，使其表达更清晰、更符合8-12岁儿童阅读习惯。
+目标：
+* 移除所有注释块。在必要时根据注释块来修改文本。
+* 请输出润色后的完整故事正文，不要加任何说明。
+
 草稿:
+```
 ${draft}
+```
 """,
             after_model_callback=editor_after_model_callback
         )
