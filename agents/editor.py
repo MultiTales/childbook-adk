@@ -30,6 +30,7 @@ class EditorAgent(LlmAgent):
 目标：
 * 移除所有注释块。在必要时根据注释块来修改文本。
 * 请输出润色后的完整故事正文，不要加任何说明。
+* Respond in the language ${language}.
 
 草稿:
 ```
