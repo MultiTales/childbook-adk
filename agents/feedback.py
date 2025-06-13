@@ -2,6 +2,7 @@ from google.adk.agents import LlmAgent
 import random
 import json
 
+
 def feedback_after_model_callback(callback_context, llm_response):
     # 1. 提取 LLM 输出文本
     text = ""
@@ -26,6 +27,7 @@ def feedback_after_model_callback(callback_context, llm_response):
         callback_context.state["reader_score"] = round(random.uniform(0.8, 1.0), 2)
         callback_context.state["reader_comments"] = f"解析失败: {e}，输出内容：{text}"
 
+
 class FeedbackAgent(LlmAgent):
     def __init__(self):
         super().__init__(
@@ -37,5 +39,5 @@ class FeedbackAgent(LlmAgent):
 故事:
 ${edited}
 """,
-            after_model_callback=feedback_after_model_callback
+            after_model_callback=feedback_after_model_callback,
         )
