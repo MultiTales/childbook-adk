@@ -63,7 +63,7 @@ rubric（评分标准）如下：
 4. 角色设定是否有趣、富有创意？
 
 故事草稿如下：
-${draft}
+${edited}
 """,
             after_model_callback=positive_reviewer_after_model_callback,
         )
@@ -97,7 +97,7 @@ rubric（评分标准）如下：
 5. 其他你认为的任何明显不足或可以改进之处
 
 故事草稿如下：
-${draft}
+${edited}
 """,
             after_model_callback=negative_reviewer_after_model_callback,
         )

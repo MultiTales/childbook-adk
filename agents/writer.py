@@ -15,7 +15,7 @@ def writer_before_model_callback(
     if (
         state.get("positive_comment") is not None
         and state.get("negative_comment")
-        and state.get("draft")
+        and state.get("edited")
     ):
         feedback = f"""
 【修订提示】
@@ -23,7 +23,7 @@ def writer_before_model_callback(
 上轮故事消极评审意见：{state['negative_comment']}
 上轮草稿如下：
 ```
-{state['draft']}
+{state['edited']}
 ```
 请针对上述反馈进行优化改写。请保存积极评审意见中的优势。并且改进消极评审意见中提及的不足
 """
@@ -65,6 +65,8 @@ class WriterAgent(LlmAgent):
 * 使用工具 `draw_playcard` 来获取灵感。
 * 你可以多次使用工具来获取灵感。
 * 你可以自由发挥，不必完全依赖工具给出的灵感。你不必使用工具给出的灵感，也可以使用自己的想象力来创作。
+
+如果接收的反馈评价低于 0.5，请重新使用工具来获取灵感。必要时重写故事。
 
 请直接输出正文，不要带任何说明。
 请按照用给出的要求完成创作。每次输出都需要完整给出完整文章。
