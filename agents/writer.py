@@ -2,6 +2,8 @@ from google.adk.agents import LlmAgent
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.models.llm_request import LlmRequest
 
+from agents.tools.playcard import draw_playcard
+
 
 def writer_before_model_callback(
     callback_context: CallbackContext, llm_request: LlmRequest
@@ -49,6 +51,7 @@ class WriterAgent(LlmAgent):
             name="writer",
             before_model_callback=writer_before_model_callback,
             after_model_callback=writer_after_model_callback,
+            tools=[draw_playcard],
             description="写作有趣儿童读物的作家",
             instruction="""
 你是一名儿童文学作家，请根据以下故事提纲或主题创作一段有趣的儿童故事，字数在150-200字之间。目标读者年龄在8-12岁之间。
@@ -57,6 +60,11 @@ class WriterAgent(LlmAgent):
 比如：
 * 使用注释块来提前规划想表达的人物心理以及可能的表达方式。
 * 在编写一段情节之前，先规划情节的作用以及思考可能的发展方向。
+
+你可以在写作前使用工具来获取灵感。
+* 使用工具 `draw_playcard` 来获取灵感。
+* 你可以多次使用工具来获取灵感。
+* 你可以自由发挥，不必完全依赖工具给出的灵感。你不必使用工具给出的灵感，也可以使用自己的想象力来创作。
 
 请直接输出正文，不要带任何说明。
 请按照用给出的要求完成创作。每次输出都需要完整给出完整文章。
