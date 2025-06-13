@@ -1,6 +1,7 @@
 import json
 from google.adk.agents import LlmAgent
 
+
 def language_detector_after_model_callback(callback_context, llm_response):
     text = ""
     try:
@@ -17,6 +18,7 @@ def language_detector_after_model_callback(callback_context, llm_response):
     except Exception as e:
         print(f"Error parsing JSON in language detector: {e}")
         callback_context.state["language"] = "en"
+
 
 class LanguageDetectorAgent(LlmAgent):
     def __init__(self):

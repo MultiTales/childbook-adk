@@ -76,6 +76,7 @@ EVENTS = [
     "A party is interrupted",
 ]
 
+
 def draw_playcard():
     """
     Draw one playcard from each category.
