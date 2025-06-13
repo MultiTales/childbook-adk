@@ -1,5 +1,11 @@
 # childbook-adk
 
+## Google cloud login
+```sh
+gcloud auth login
+gcloud config set project (YOUR PROJECT NAME)
+```
+
 ## Run project
 [uv](https://github.com/astral-sh/uv) is recommended.
 
