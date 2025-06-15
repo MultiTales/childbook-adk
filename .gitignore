@@ -3,3 +3,4 @@
 __MACOSX
 __pycache__
 .idea
+output*

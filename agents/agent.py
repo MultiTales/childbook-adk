@@ -5,6 +5,7 @@ from agents.writer import WriterAgent
 from agents.reviewers import PositiveReviewerAgent, NegativeReviewerAgent
 from agents.editor import EditorAgent
 from agents.feedback import FeedbackAgent
+from agents.image_creator import ImageCreatorAgent
 
 writer = WriterAgent()
 positive_reviewer = PositiveReviewerAgent()
@@ -12,6 +13,7 @@ negative_reviewer = NegativeReviewerAgent()
 editor = EditorAgent()
 # feedback = FeedbackAgent()
 language_detector = LanguageDetectorAgent()
+image_creator = ImageCreatorAgent()
 
 reviewers = ParallelAgent(
     name="ParallelReviewAgent",
@@ -25,10 +27,10 @@ workflow = SequentialAgent(
 )
 
 main_loop = LoopAgent(
-    name="BookProductionLoop", sub_agents=[workflow], max_iterations=5
+    name="BookProductionLoop", sub_agents=[workflow], max_iterations=1 #TODO 改回5
 )
 
 root_agent = SequentialAgent(
     name="RootAgent",
-    sub_agents=[language_detector, main_loop],
+    sub_agents=[language_detector, main_loop, image_creator],
 )
