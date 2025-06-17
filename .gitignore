@@ -1,4 +1,4 @@
-.env
+agents/.env
 .DS_Store
 __MACOSX
 __pycache__
