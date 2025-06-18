@@ -27,7 +27,7 @@ workflow = SequentialAgent(
 )
 
 main_loop = LoopAgent(
-    name="BookProductionLoop", sub_agents=[workflow], max_iterations=1 #TODO 改回5
+    name="BookProductionLoop", sub_agents=[workflow], max_iterations=3
 )
 
 root_agent = SequentialAgent(

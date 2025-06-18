@@ -1,25 +1,33 @@
 from google.adk.agents import LlmAgent
 from google import genai
 from google.adk.tools import ToolContext
+from google.adk.tools import load_artifacts
 
 from google import genai
+import google.genai.types as types
 
 
-def generate_image(context: str, tool_context: ToolContext) -> dict:
-    print("context is :", context)
+async def generate_image(context: str, tool_context: ToolContext) -> dict:
     client = genai.Client()
-
-    output_file = f"output-image-{tool_context.function_call_id}.png"
-
-    image = client.models.generate_images(
-        model="imagen-4.0-generate-preview-06-06",
+    """Generates an image based on the prompt."""
+    response = client.models.generate_images(
+        model='imagen-4.0-generate-preview-06-06',
         prompt=context,
+        config={'number_of_images': 1},
     )
+    if not response.generated_images:
+        return {'status': 'failed'}
+    image_bytes = response.generated_images[0].image.image_bytes
+    await tool_context.save_artifact(
+        'image.png',
+        types.Part.from_bytes(data=image_bytes, mime_type='image/png'),
+    )
+    return {
+        'result': 'success',
+        'detail': 'Image generated successfully and stored in artifacts.',
+        'output_file': 'image.png',
+    }
 
-    image.generated_images[0].image.save(output_file)
-
-    print(f"Created output image using {len(image.generated_images[0].image.image_bytes)} bytes")
-    return {"result": "success", "output_file": output_file}
 
 class ImageCreatorAgent(LlmAgent):
     def __init__(self):
@@ -35,10 +43,12 @@ class ImageCreatorAgent(LlmAgent):
                 4. The image prompt must capture the most engaging and representative moment or theme in the story — such as the emotional climax, a major event, or the story's main setting and characters.
                 5. The image generation prompt should be vivid, descriptive, and suitable for a children's book illustration (e.g., colorful, imaginative, age-appropriate).
                 6. Output only a single call to the 'generate_image' tool with your prompt as the only argument.
-                7. The 'generate_image' tool will return a result and an output_file, include the output_file in your final response
-                Example Response: "Here is a image generation prompt that captures the essence of the story: ...
-                The illustration of the story is located at output-image-adk-asdsdf-asdd-asdf-asdf-1239udasfl.png"
+                7. You should also describe the image to the user, for example: This image depicts ...
+
+                Respond in the language ${language}
+
+                Here is the story ${edited}
                 """,
-            tools=[generate_image],
+            tools=[generate_image, load_artifacts],
         )
 
