@@ -4,3 +4,4 @@ __MACOSX
 __pycache__
 .idea
 requirements.txt
+output*
