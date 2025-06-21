@@ -1,6 +1,7 @@
-.env
+agents/.env
 .DS_Store
 __MACOSX
 __pycache__
 .idea
+requirements.txt
 output*
