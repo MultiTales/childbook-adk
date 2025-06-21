@@ -11,8 +11,8 @@ def text_to_pdf(image_bytes, text):
     text_after = textwrap.fill(text, 80)
 
     
-    pdf.add_font("fireflysung", "", "./fireflysung.ttf", uni=True)
-    pdf.set_font("fireflysung", "", 14)
+    pdf.add_font("Standing", "", "./Chewy.ttf", uni=True)
+    pdf.set_font("Standing", "", 14)
 
     page_width = pdf.w - 2 * pdf.l_margin
     target_width = page_width * 80 / 100
@@ -38,6 +38,7 @@ def text_to_pdf(image_bytes, text):
     # except Exception as e:
     #     print(f"错误: {e}")
     # add text
+    pdf.set_left_margin(30)
     pdf.multi_cell(200, 10, text=text_after)
 
     # save file
