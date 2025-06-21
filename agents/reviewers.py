@@ -62,6 +62,8 @@ rubric（评分标准）如下：
 3. 是否包含积极正面的价值观？
 4. 角色设定是否有趣、富有创意？
 
+Respond in the language ${language}.
+
 故事草稿如下：
 ${edited}
 """,
@@ -95,6 +97,8 @@ rubric（评分标准）如下：
 3. 是否缺少积极的价值观或存在不良暗示？
 4. 角色是否刻板单一或缺乏吸引力？
 5. 其他你认为的任何明显不足或可以改进之处
+
+Respond in the language ${language}.
 
 故事草稿如下：
 ${edited}
