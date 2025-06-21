@@ -3,5 +3,8 @@ agents/.env
 __MACOSX
 __pycache__
 .idea
-requirements.txt
 output*
+pdm.lock
+pyproject.toml
+uv.lock
+sessions.db
