@@ -24,8 +24,8 @@ This project addresses key challenges in children's book production: long creati
 - **Google ADK**: Multi-agent orchestration framework
 - **Workflow Agents**: Uses `SequentialAgent`, `LoopAgent`, `AgentTool`
 - **LLM Models**:
-  - Gemini 2.5 Pro for writing
-  - Gemini 2.0 Flash for editing
+  - Gemini 2.5 Pro for writing and editing
+  - Gemini 2.0 Flash for reviewing
 - **Tooling & Services**:
   - Google Cloud Run
   - Imagen 4 (image generation model)
@@ -70,7 +70,7 @@ Or, for Vertex AI:
 ```dotenv
 GOOGLE_GENAI_USE_VERTEXAI=True
 GOOGLE_CLOUD_PROJECT=your-project-id
-GOOGLE_CLOUD_LOCATION=us-central1
+GOOGLE_CLOUD_LOCATION=global
 ```
 
 ### 5. Run the Agent Locally
