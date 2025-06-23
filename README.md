@@ -95,8 +95,9 @@ Follow our tutorial:
 
 ## 🧪 Demo & Results
 
-- 📽️ Demo Video: [[https://youtu.be/demo-link](https://www.youtube.com/watch?v=Y4XCKt83iSU)]([https://youtu.be/demo-link](https://www.youtube.com/watch?v=Y4XCKt83iSU))
+- 📽️ Demo Video: [https://www.youtube.com/watch?v=Y4XCKt83iSU](https://www.youtube.com/watch?v=Y4XCKt83iSU)
 - 💻 Repository: [https://github.com/MultiTales/childbook-adk/](https://github.com/MultiTales/childbook-adk/)
+- 🌐 Live Demo: [https://childbook-adk-308169800011.australia-southeast2.run.app](https://childbook-adk-308169800011.australia-southeast2.run.app)
 - 📚 Each run iterates through 3 story versions with automatic review and refinement
 - 📄 Final output: a fully illustrated, child-friendly storybook in PDF format
 
