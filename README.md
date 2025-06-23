@@ -123,5 +123,5 @@ Follow our tutorial:
 |--------------|---------------------|------------------------------------------------------------------------|
 | Jiahui Bai   | Architecture, DevOps | Multi-agent flow design, orchestration control, Cloud Run deployment   |
 | Shumin Liu   | Model Engineering    | Prompt crafting, role specification, Gemini model tuning, architecture improvements |
-| Yiyang Huang | Integration & Output | Output structuring, PDF synthesis logic, story-image formatting         |
-| Jacky Wang   | Visualization & Media| Demo video production, system diagram design, Imagen integration        |
+| Jacky Wang | Integration & Output | Output structuring, PDF synthesis logic, story-image formatting         |
+| Yiyang Huang   | Visualization & Media| Demo video production, system diagram design, Imagen integration        |
